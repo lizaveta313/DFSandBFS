@@ -1,0 +1,38 @@
+name: C++ CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Проверка исходного кода
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Установка необходимых библиотек и зависимостей
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y g++ cmake make
+
+      # Сборка проекта
+      - name: Build project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+      # Запуск тестов (если у вас есть тесты)
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure
