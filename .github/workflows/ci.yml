@@ -14,8 +14,11 @@ jobs:
 
     steps:
       # Проверка исходного кода
-      - name: Checkout repository
+    - name: Checkout repository
         uses: actions/checkout@v2
+      with:
+        submodules: true  # Обязательно для подмодулей
+
 
       # Установка необходимых библиотек и зависимостей
       - name: Install dependencies
